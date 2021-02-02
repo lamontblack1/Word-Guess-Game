@@ -24,6 +24,8 @@ let currentDisplay = "";
 let wordListCounter = 0
 //got one letter right switch
 let letterInWord = false
+// grab image div 
+let imageDiv = document.getElementById("image-div")
 
 
 
@@ -55,6 +57,13 @@ document.onkeyup = function(event) {
                 currentGuess = leftSlice + letter + rightSlice;
                 // do something with letter gif and then display word
                 displayCurrentGuess();
+                imageDiv.innerHTML = "<img id='letterGif' src='./assets/images/" + letter + ".webp' style='position: absolute; top: 30%; width: 80%; z-index: 5;' />";
+                for (let i = 1; i < 101; i++) {
+                    setTimeout(function timer() {
+                    document.getElementById("letterGif").style.width = (100-i) + "%";
+                    }, i * 20);
+                                      
+                }
                 
             }
             
