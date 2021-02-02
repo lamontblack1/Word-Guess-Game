@@ -101,7 +101,7 @@ function startNewWord() {
         return 0;
     }
     lettersGuessedWrong = [];
-    guessesRemaining = 3;
+    guessesRemaining = 7;
     currentGuess = "";
     currentWord = wordList[wordListCounter].word;
     currentWord = currentWord.toUpperCase();
