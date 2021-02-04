@@ -12,8 +12,7 @@ const wordList = [
 ];
 
 // Letters guessed array 
-let lettersGuessedWrong = [];
-// start with 10 incorrect guesses 
+// let lettersGuessedWrong = [];
 let guessesRemaining = 0;
 // to keep score 
 let wordsGuessedCorrectly = 0;
@@ -61,7 +60,9 @@ document.onkeyup = function(event) {
                 for (let i = 1; i < 101; i++) {
                     setTimeout(function timer() {
                     document.getElementById("letterGif").style.width = (100-i) + "%";
-                    }, i * 20);
+                    document.getElementById("letterGif").style.left = i/2 + "%"
+                    document.getElementById("letterGif").style.top = i/5 + "%"
+                    }, i * 30);
                                       
                 }
                 
@@ -70,14 +71,26 @@ document.onkeyup = function(event) {
         }; // This is where the for ends 
 
         // display incorrect guesses
-         // otherwise it is wrong, add it to incorrect guess array and display it, if no guesses left lose
+         // otherwise it is wrong, add it to incorrect guesses and display it, if no guesses left lose
          if (letterInWord === false) {
-            lettersGuessedWrong.push(letter);
+            let wrongLetterDiv = $("<div>");
+            wrongLetterDiv.attr("class","wrong-letter display-3 px-4 m-1");
+            wrongLetterDiv.text(letter);
+            $("#incorrectGuesses").append(wrongLetterDiv);
             guessesRemaining--;
-            displayCurrentGuess();
+            // Update guesses remaining div
+            document.getElementById("guessesRemainingDisplay").textContent = guessesRemaining;
+
+            //If there are no gueses remaining player loses
             if (guessesRemaining === 0) {
-               alert("You Lose!");
-               startNewWord();
+                document.getElementById("displayedWord").textContent = currentWord
+                
+                // this was needed to allow the above div refresh to show entire word
+                setTimeout(function(){
+                        // Instructions after delay
+                        alert("You lose!")
+                        startNewWord()
+                    },2000);
             }
             
          }
@@ -87,12 +100,14 @@ document.onkeyup = function(event) {
         if (currentGuess.indexOf("_") === -1) {
             wordsGuessedCorrectly++
             document.getElementById("scoreDisplay").textContent = wordsGuessedCorrectly;
-            alert("you win");
+            setTimeout(function(){
+                alert("YOU WIN!");
+                startNewWord();
+            },4000);
            
             // **** add something cool here
 
-            // Reset word
-            window.setTimeout(startNewWord(),5000)
+           
         }    
         
         
@@ -121,7 +136,9 @@ function startNewWord() {
     displayCurrentGuess();
     document.getElementById("hintDisplay").textContent = wordList[wordListCounter].hint;
     document.getElementById("scoreDisplay").textContent = wordsGuessedCorrectly;
-    document.getElementById("incorrectGuesses").textContent = "";
+    document.getElementById("guessesRemainingDisplay").textContent = guessesRemaining;
+    $("#incorrectGuesses").empty()
+    // document.getElementById("incorrectGuesses").textContent = "";
     wordListCounter++;
     
 };
@@ -135,8 +152,7 @@ function displayCurrentGuess() {
     }
     currentDisplay.trim();
     document.getElementById("displayedWord").textContent = currentDisplay;
-    document.getElementById("guessesRemainingDisplay").textContent = guessesRemaining;
-    document.getElementById("incorrectGuesses").textContent = lettersGuessedWrong;
+    // document.getElementById("incorrectGuesses").textContent = lettersGuessedWrong;
 
 };
 

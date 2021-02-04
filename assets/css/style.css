@@ -9,3 +9,15 @@
 --umber: #6f5e53ff;
 --powder-blue: #afdedcff;
 --morning-blue: #91a8a4ff; */
+.wrong-letter {
+    /* width: 60px;
+    height: 60px; */
+    /* border-style: solid; */
+    /* padding: 2px; */
+    float: left;
+    /* margin: 2px; */
+    color: red;
+    /* border-color: red; */
+    text-decoration: line-through;
+    font-weight: bold;
+  }
